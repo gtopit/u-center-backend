@@ -1,0 +1,17 @@
+#首次登录是否需要修改密码
+#FIRST_LOGIN_CHANGE_PASSWORD: false
+
+#密码校验规则
+#PASSWORD_VALIDATE_REGEX: ^(?=.*\d)(?=.*[a-zA-Z])(?=.*[~!@#$%^&*])[\da-zA-Z~!@#$%^&*]{8,}$
+
+#登录是否需要图片校验码
+#NEED_CAPTCHA: true
+
+#登录失败锁定启用
+#LOGIN_FAIL_LOCK: false
+
+#登录最多连续失败尝试次数，之后再次失败则锁定
+#LOGIN_FAIL_MAX_TIMES: 3
+
+#连续登录失败锁定时间
+#LOGIN_FAIL_LOCK_MINUTES: 10

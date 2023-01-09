@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gtop.uc.oauth2.dao.OauthClientDetailsMapper">
+
+    <select id="getWebRedirectByClient" resultType="java.lang.String">
+        select web_server_redirect_uri from oauth_client_details where client_id = #{clientId}
+
+    </select>
+
+    <select id="getScopeByClient" resultType="java.lang.String">
+        select scope from oauth_client_details where client_id = #{clientId} limit 1
+    </select>
+
+    <select id="getModuleRedirectByClient" resultType="java.lang.String">
+        select module_redirect_uri from sys_site_module where id = #{id}
+    </select>
+
+</mapper>

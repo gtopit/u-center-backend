@@ -1,0 +1,47 @@
+#首次登录是否需要修改密码
+#FIRST_LOGIN_CHANGE_PASSWORD: false
+
+#密码校验规则
+#PASSWORD_VALIDATE_REGEX: ^(?=.*\d)(?=.*[a-zA-Z])(?=.*[~!@#$%^&*])[\da-zA-Z~!@#$%^&*]{8,}$
+
+#登录是否需要图片校验码
+NEED_CAPTCHA: true
+
+#登录失败锁定启用
+#LOGIN_FAIL_LOCK: false
+
+#登录最多连续失败尝试次数，之后再次失败则锁定
+#LOGIN_FAIL_MAX_TIMES: 3
+
+#连续登录失败锁定时间
+#LOGIN_FAIL_LOCK_MINUTES: 10
+
+#平台级站点key
+#PLATFORM_SITE_KEY: SK_platform
+
+#平台站点主页
+#PLATFORM_SITE_DASHBOARD_URL: http://localhost/admin/#/dashboard
+
+#token过期时间
+#OAUTH2_ACCESS_TOKEN_TIMEOUT: 43200
+
+#token刷新时间
+#OAUTH2_REFRESH_TOKEN_TIMEOUT: 2592000
+
+#平台站点client-id
+#PLATFORM_SITE_CLIENT_ID: uc-admin-client-id
+
+#平台站点client-secret
+#PLATFORM_SITE_CLIENT_SECRET: uc-admin-client-secret
+
+#业务消息推送消息队列类型
+#BIZ_MQ_TYPE: jms
+
+#缓存服务类型，支持local和redis，默认使用local
+#CACHE_SERVICE: local
+
+#缓存服务存储对象默认过期时间，默认30分钟（30*60*1000），单位毫秒
+#CACHE_SERVICE_DEFAULT_TIMEOUT: 1800000
+
+#校验码默认过期时间，默认5分钟（5*60*1000），单位毫秒
+#CAPTCHA_TIMEOUT: 300000

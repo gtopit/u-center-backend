@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gtop.uc.oauth2.dao.SysSiteMapper">
+
+    <update id="updateSort">
+        update sys_site set order_time = #{orderTime} where site_key = #{siteKey}
+    </update>
+
+    <select id="selectClientIdBySiteId" resultType="java.lang.String">
+        SELECT t.client_id
+        FROM sys_project t
+        WHERE t.id = #{id}
+        AND t.client_id IS NOT NULL
+    </select>
+
+    <select id="listByUserNo" resultType="com.gtop.uc.oauth2.entity.SiteEx">
+        SELECT
+            a.site_key AS siteKey,
+            a.site_name AS siteName,
+            a.client_id AS clientId,
+            b.app_logo AS appLogo,
+            c.web_server_redirect_uri AS homepage,
+            ifnull( f.id, 0 ) AS isSiteManager
+        FROM sys_site a
+        INNER JOIN sys_app b ON a.client_id = b.client_id
+        INNER JOIN oauth_client_details c ON a.client_id = c.client_id
+        INNER JOIN sys_role d ON a.site_key = d.site_key
+        INNER JOIN sys_act e ON e.role_no = d.role_no
+        LEFT JOIN sys_site_manager f ON a.site_key = f.site_key
+        <where>
+            a.enabled = 1
+            and f.user_no = #{userNo}
+            and e.user_no = #{userNo}
+            <if test="deptNo != null and deptNo != ''">
+
+            </if>
+            <if test="appType != null">
+                and b.app_type = #{appType}
+            </if>
+            order by a.order_time desc
+        </where>
+    </select>
+
+    <select id="selectSiteCategories" resultType="com.gtop.uc.oauth2.entity.SiteCategoryEx">
+        SELECT
+               id,
+               cate_name as cateName,
+               description,
+               icon
+        FROM sys_site_category ORDER BY order_time DESC
+    </select>
+
+    <select id="selectDisplayFunctionList" resultType="java.util.Map">
+        SELECT fun_id as funId, fun_name as funName
+        FROM sys_project_function
+        WHERE project_id = #{projectId}
+        AND display_in_site_page = 1
+    </select>
+
+    <select id="selectProjectModuleList" resultType="java.util.Map">
+        SELECT id as moduleId, module_name as moduleName
+        FROM sys_project_module
+        WHERE project_id = #{projectId}
+    </select>
+
+</mapper>

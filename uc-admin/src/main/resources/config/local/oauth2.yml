@@ -1,0 +1,9 @@
+uc:
+  oauth2:
+    service:
+      url: http://localhost:9522/oauth2
+      access-token-url: ${uc.oauth2.service.url}/oauth/token
+      user-authorization-url: ${uc.oauth2.service.url}/oauth/authorize
+      user-info-url: ${uc.oauth2.service.url}/user/getInfo
+      user-logout-url: ${uc.oauth2.service.url}/logout
+      check-token-url: ${uc.oauth2.service.url}/oauth/check_token

@@ -1,0 +1,4 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+com.gtop.uc.common.environment.UcEnvironmentPostProcessor
+org.springframework.context.ApplicationListener=\
+com.gtop.uc.common.environment.UcEnvironmentPostProcessor

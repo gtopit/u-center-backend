@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gtop.uc.oauth2.dao.SysUserMapper">
+
+    <select id="isSiteManager" resultType="java.lang.Boolean">
+        SELECT COUNT(1)
+        FROM sys_site_manager spm
+        WHERE user_no = #{userNo}
+          AND site_key = #{siteKey}
+    </select>
+
+    <select id="getDetailedUserInfoById" parameterType="com.gtop.uc.oauth2.entity.DetailedUserInfo"
+            resultType="com.gtop.uc.oauth2.entity.DetailedUserInfo" lang="XML">
+        SELECT
+        t.user_id as userId,
+        t.user_no as userNo,
+        t.user_name as userName,
+        t.dept_id as deptId,
+        t2.dept_name as deptName,
+        t.sex,
+        t.own_roles as ownRoles,
+        t.user_grade as userGrade,
+        <if test="currentSiteId != null">
+            #{currentSiteId} AS currentSiteId,
+            t3.project_name AS currentSiteName,
+        </if>
+        #{platformId} AS platformId,
+        t.group_id as groupId,
+        t2.dept_code AS groupNo,
+        t2.dept_name AS groupName,
+        t2.full_path AS fullPath
+        FROM sys_user t
+        LEFT JOIN sys_deptment t2 ON t.dept_id = t2.dept_id
+        LEFT JOIN sys_project t3 ON #{currentSiteId} = t3.project_id
+        WHERE t.user_id = #{userId}
+    </select>
+
+    <select id="selectUser" resultType="com.gtop.uc.oauth2.entity.SysUserEx">
+        select
+            a.user_name as userName,
+            a.user_no as userNo,
+            a.dept_no as deptNo,
+            a.password,
+            a.enabled,
+            b.dept_name as deptName
+        from sys_user a
+            inner join sys_department b on a.dept_no = b.dept_no
+        <where>
+            <if test="userNo != null and userNo != ''">
+                a.user_no = #{userNo}
+            </if>
+            <if test="userName != null and userName != ''">
+                a.user_name = #{userName}
+            </if>
+            <if test="telephone != null and telephone != ''">
+                a.telephone = #{telephone}
+            </if>
+        </where>
+    </select>
+
+</mapper>

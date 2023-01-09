@@ -1,0 +1,4 @@
+gtop:
+  messages:
+    system-message-map:
+      000: "系统异常！"

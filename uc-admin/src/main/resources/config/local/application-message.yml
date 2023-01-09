@@ -1,0 +1,4 @@
+gtop:
+  messages:
+    application-message-map:
+      2100: "非站点管理员！"

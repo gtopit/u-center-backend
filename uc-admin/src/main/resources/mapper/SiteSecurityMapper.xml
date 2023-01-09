@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gtop.uc.admin.dao.SiteSecurityMapper">
+
+    <resultMap id="siteMap" type="com.gtop.uc.common.entity.sys.SysSite">
+        <result property="id" column="id" />
+        <result property="siteKey" column="site_key" />
+        <result property="cateId" column="cate_id" />
+        <result property="siteName" column="site_name" />
+        <result property="managerNo" column="manager_no" />
+        <result property="managerNos" column="manager_nos" />
+        <result property="managerNames" column="manager_names" />
+        <result property="iconPath" column="icon_path" />
+        <result property="backgroundPath" column="background_path" />
+        <result property="enabled" column="enabled" />
+        <result property="version" column="version" />
+        <result property="dataGroups" column="data_groups" />
+        <result property="remark" column="remark" />
+        <result property="orderTime" column="order_time" />
+        <result property="isMqEnabled" column="is_mq_enabled" />
+        <result property="clientId" column="client_id" />
+    </resultMap>
+
+    <resultMap id="departmentMap" type="com.gtop.uc.common.entity.sys.SysDepartment">
+        <result property="id" column="id" />
+        <result property="siteId" column="site_id" />
+        <result property="id" column="id" />
+        <result property="pno" column="pno" />
+        <result property="deptNo" column="dept_no" />
+        <result property="deptName" column="dept_name" />
+        <result property="fullName" column="full_name" />
+        <result property="shortName" column="short_name" />
+        <result property="fullPath" column="full_path" />
+        <result property="orderTime" column="order_time" />
+        <result property="deptFunction" column="dept_function" />
+        <result property="deptType" column="dept_type" />
+        <result property="telephone" column="telephone" />
+        <result property="buildDate" column="build_date" />
+        <result property="dataStatus" column="data_status" />
+        <result property="json" column="json" />
+        <result property="version" column="version" />
+        <result property="remark" column="remark" />
+        <result property="fullIdPath" column="full_id_path" />
+        <result property="districtNo" column="district_no" />
+    </resultMap>
+
+    <resultMap id="roleMap" type="com.gtop.uc.common.entity.sys.SysRole">
+        <result property="id" column="id" />
+        <result property="siteKey" column="site_key" />
+        <result property="roleNo" column="role_no" />
+        <result property="roleName" column="role_name" />
+        <result property="enabled" column="enabled" />
+        <result property="json" column="json" />
+        <result property="version" column="version" />
+        <result property="remark" column="remark" />
+        <result property="grantUsers" column="grant_users" />
+    </resultMap>
+
+    <resultMap id="menuMap" type="com.gtop.uc.admin.entity.MenuNode">
+        <result property="id" column="id" />
+        <result property="siteKey" column="site_key" />
+        <result property="funName" column="fun_name" />
+        <result property="funType" column="fun_type" />
+        <result property="location" column="location" />
+        <result property="pid" column="pid" />
+        <result property="orderTime" column="order_time" />
+        <result property="logFlag" column="log_flag" />
+        <result property="iconPath" column="icon_path" />
+        <result property="version" column="version" />
+        <result property="remark" column="remark" />
+        <result property="fullPath" column="full_path" />
+        <result property="helpUrl" column="help_url" />
+        <result property="isOpenNew" column="is_open_new" />
+        <result property="displayInSitePage" column="display_in_site_page" />
+        <result property="json" column="json" />
+    </resultMap>
+
+    <select id="isSiteManager" resultType="java.lang.Boolean">
+        SELECT COUNT(1)
+        FROM sys_site_manager spm
+        WHERE user_no = #{userNo}
+          AND site_key = #{siteKey}
+    </select>
+
+    <select id="selectSiteBySiteKey" resultMap="siteMap">
+        SELECT
+            a.*
+        FROM
+            sys_site a
+        WHERE
+            a.site_key = #{siteKey}
+    </select>
+
+    <select id="selectDepartmentByUserNo" resultMap="departmentMap">
+        SELECT
+            b.*
+        FROM
+            sys_user a
+                INNER JOIN sys_department b ON a.dept_no = b.dept_no
+        WHERE
+            a.user_no = #{userNo}
+    </select>
+
+    <select id="selectRoleByUserNo" resultMap="roleMap">
+        SELECT
+            b.*
+        FROM
+            sys_user_role_rel a
+                INNER JOIN sys_role b ON a.role_no = b.role_no
+        WHERE
+            a.user_no = = #{userNo}
+    </select>
+
+    <select id="selectMenuBySiteKey" resultMap="menuMap">
+        SELECT
+            a.*
+        FROM
+            sys_site_menu a
+        WHERE
+            a.site_key = #{siteKey}
+        ORDER BY a.order_time DESC
+    </select>
+
+</mapper>
